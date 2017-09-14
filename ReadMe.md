@@ -16,6 +16,10 @@ Dogs are on the whole wonderfully good and, perhaps, the best companions of huma
 - `npm run build`
 - upload your `build/bundle.zip` to your lambda function via [AWS Lambda Console][aws-lambda-console]
 
+## Note: External Content
+
+This skill makes use of [node-fetch][node-fetch] to pull some JSON of additional "facts" beyond the statically defined set, which is used as a fallback in the event of network request failure. This can be found [where it lives][json-alt-host].
+
 ## Credits
 
 - [Amazon Aelxa Node SDK](http://npm.im/alexa-sdk)
@@ -27,3 +31,5 @@ Dogs are on the whole wonderfully good and, perhaps, the best companions of huma
 MIT
 
 [aws-lambda-console]: https://console.aws.amazon.com/lambda/home
+[json-alt-host]: https://github.com/edm00se/edm00se.github.io/blob/master/devDogFacts.json
+[node-fetch]: http://npm.im/node-fetch
