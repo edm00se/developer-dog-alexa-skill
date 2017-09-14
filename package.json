@@ -1,0 +1,38 @@
+{
+  "name": "alexa-dev-dog-fact-skills",
+  "version": "1.0.0",
+  "description": "an alexa skill to give motiviational dog themed facts for developers",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf build",
+    "build": "npm-run-all --sequential build:*",
+    "build:npmcheck": "path-exists node_modules || exit 1",
+    "build:mkdir": "npm run clean && mkdir build",
+    "build:zip": "bestzip build/bundle.zip ./index.js ./facts.js ./node_modules",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier-eslint \"index.js\" \"facts.js\" --write",
+    "lint": "eslint -f './node_modules/eslint-formatter-pretty' index.js facts.js"
+  },
+  "dependencies": {
+    "alexa-sdk": "1.0.12",
+    "node-fetch": "1.7.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "7.2.3",
+    "bestzip": "1.1.4",
+    "eslint": "4.5.0",
+    "eslint-config-xo-space": "0.16.0",
+    "eslint-formatter-pretty": "1.1.0",
+    "mkdirp": "0.5.1",
+    "npm-run-all": "4.1.0",
+    "path-exists-cli": "1.0.0",
+    "prettier-eslint-cli": "4.3.0",
+    "rimraf": "2.6.1"
+  },
+  "author": "Eric McCormick (https://ericmccormick.io/)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edm00se/developer-dog-alexa-skill.git"
+  },
+  "license": "MIT"
+}

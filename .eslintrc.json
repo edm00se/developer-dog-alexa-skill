@@ -1,0 +1,13 @@
+{
+  "extends": "xo-space",
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "capitalized-comments": 0,
+    "no-unused-vars": 1
+  }
+}
