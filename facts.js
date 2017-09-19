@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const jsonUrl = 'https://ericmccormick.io/devDogFacts.json';
+const jsonUrl = 'https://edm00se.codes/dev-dog/static/facts.json';
 
 /**
  * Array containing dev dog facts.
