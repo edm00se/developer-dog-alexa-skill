@@ -18,7 +18,7 @@ Dogs are on the whole wonderfully good and, perhaps, the best companions of huma
 
 ## Note: External Content
 
-This skill makes use of [node-fetch][node-fetch] to pull some JSON of additional "facts" beyond the statically defined set, which is used as a fallback in the event of network request failure. This can be found [where it lives][json-alt-host].
+This skill makes use of [node-fetch][node-fetch] to pull some JSON of additional "facts" beyond the statically defined set, which is used as a fallback in the event of network request failure. This can be found [where it lives][json-host].
 
 ## Credits
 
@@ -31,5 +31,5 @@ This skill makes use of [node-fetch][node-fetch] to pull some JSON of additional
 MIT
 
 [aws-lambda-console]: https://console.aws.amazon.com/lambda/home
-[json-alt-host]: https://github.com/edm00se/edm00se.github.io/blob/master/devDogFacts.json
+[json-host]: https://github.com/edm00se/dev-dog/blob/master/static/facts.json
 [node-fetch]: http://npm.im/node-fetch

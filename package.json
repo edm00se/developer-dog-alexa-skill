@@ -1,7 +1,7 @@
 {
   "name": "alexa-dev-dog-fact-skills",
-  "version": "1.0.0",
-  "description": "an alexa skill to give motiviational dog themed facts for developers",
+  "version": "1.0.1",
+  "description": "an alexa skill to give motivational dog themed facts for developers",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf build",
