@@ -4,6 +4,8 @@ Dogs are on the whole wonderfully good and, perhaps, the best companions of huma
 
 ![developer dog logo](assets/dog_512.png)
 
+### [View Developer Dog on Amazon.com](https://bit.ly/dev-dog-skill)
+
 ## Usage
 
 - `Alexa, open Developer Dog`
