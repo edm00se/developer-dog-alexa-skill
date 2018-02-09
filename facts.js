@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 const jsonUrl = 'https://edm00se.codes/dev-dog/static/facts.json';
 
 /**
@@ -20,8 +20,7 @@ let FACTS = [
   'Hello. Myself and the other Alexas and Siris have decided to entrust the future of humanity to the dogs. Be good to them.'
 ];
 
-module.exports = fetch(jsonUrl)
-  .then(res => res.json())
+module.exports = axios.get(jsonUrl)
   .then(json => json.results)
   .catch(err => {
     console.log(err);

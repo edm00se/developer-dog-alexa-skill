@@ -14,8 +14,8 @@
     "lint": "eslint -f './node_modules/eslint-formatter-pretty' index.js facts.js"
   },
   "dependencies": {
-    "alexa-sdk": "1.0.12",
-    "node-fetch": "1.7.2"
+    "alexa-sdk": "1.0.25",
+    "axios": "0.17.1"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
