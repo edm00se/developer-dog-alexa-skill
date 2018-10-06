@@ -17,17 +17,24 @@ const GetNewFactHandler = {
         && request.intent.name === 'GetFact');
   },
   handle(handlerInput) {
-    const factArray = pFACTS.getFacts()
-      .then(facts => {
-        const factIndex = Math.floor(Math.random() * facts.length);
-        const randomFact = facts[factIndex];
-        const cardTitle = 'Happiness is next to dogginess';
-  
-        return handlerInput.responseBuilder
-          .speak(randomFact)
-          .withSimpleCard(cardTitle, randomFact)
-          .getResponse();
-      }).catch(err => console.error(err));
+    return new Promise((resolve) => {
+      pFACTS.getFacts()
+        .then(facts => {
+          const factIndex = Math.floor(Math.random() * facts.length);
+          const randomFact = facts[factIndex];
+          const cardTitle = 'Happiness is next to dogginess';
+    
+          resolve(handlerInput.responseBuilder
+            .speak(randomFact)
+            .withSimpleCard(cardTitle, randomFact)
+            .getResponse());
+        }).catch(err => {
+          console.error(err);
+          resolve(handlerInput.responseBuilder
+            .speak('Something went horribly wrong. Hug the puppies!')
+            .getResponse());
+        });
+    });
   },
 };
 
