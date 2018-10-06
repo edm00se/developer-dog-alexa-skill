@@ -1,5 +1,6 @@
 const axios = require('axios');
 const jsonUrl = 'https://edm00se.codes/dev-dog/static/facts.json';
+let factAr = [];
 
 /**
  * Array containing dev dog facts.
@@ -20,9 +21,23 @@ let FACTS = [
   'Hello. Myself and the other Alexas and Siris have decided to entrust the future of humanity to the dogs. Be good to them.'
 ];
 
-module.exports = axios.get(jsonUrl)
-  .then(json => json.results)
-  .catch(err => {
-    console.log(err);
-    return FACTS;
+function getFacts() {
+  return new Promise(resolve => {
+    if(factAr.length === 0){
+      axios.get(jsonUrl)
+        .then(res => {
+          factAr = res.data.results;
+          resolve(factAr);
+        }).catch(err => {
+          factAr = FACTS;
+          resolve(FACTS);
+        });
+    } else {
+      resolve(factAr);
+    }
   });
+}
+
+module.exports = {
+  getFacts
+}

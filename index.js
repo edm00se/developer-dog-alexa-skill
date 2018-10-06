@@ -17,19 +17,17 @@ const GetNewFactHandler = {
         && request.intent.name === 'GetFact');
   },
   handle(handlerInput) {
-    pFACTS.then(facts => {
-
-      const factIndex = Math.floor(Math.random() * facts.length);
-      const randomFact = facts[factIndex];
-      let cardTitle = 'Happiness is next to dogginess';
-      const speakOutput = randomFact;
-
-      return handlerInput.responseBuilder
-        .speak(speakOutput)
-        .withSimpleCard(cardTitle, randomFact)
-        .getResponse();
-
-    });
+    const factArray = pFACTS.getFacts()
+      .then(facts => {
+        const factIndex = Math.floor(Math.random() * facts.length);
+        const randomFact = facts[factIndex];
+        const cardTitle = 'Happiness is next to dogginess';
+  
+        return handlerInput.responseBuilder
+          .speak(randomFact)
+          .withSimpleCard(cardTitle, randomFact)
+          .getResponse();
+      }).catch(err => console.error(err));
   },
 };
 
@@ -67,7 +65,8 @@ const ExitHandler = {
     const request = handlerInput.requestEnvelope.request;
     return request.type === 'IntentRequest'
       && (request.intent.name === 'AMAZON.CancelIntent'
-        || request.intent.name === 'AMAZON.StopIntent');
+        || request.intent.name === 'AMAZON.StopIntent'
+        || request.intent.name === 'AMAZON.NavigateHomeIntent');
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
@@ -113,5 +112,5 @@ exports.handler = skillBuilder
     SessionEndedRequestHandler,
   )
   .addErrorHandlers(ErrorHandler)
-  .withSkillId(ALEXA_SKILL_ID)
+  // .withSkillId(ALEXA_SKILL_ID)
   .lambda();
