@@ -14,12 +14,13 @@
     "lint": "eslint -f './node_modules/eslint-formatter-pretty' index.js facts.js"
   },
   "dependencies": {
-    "alexa-sdk": "1.0.25",
+    "ask-sdk-core": "2.1.0",
+    "ask-sdk-model": "1.7.1",
     "axios": "0.17.1"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
-    "bestzip": "1.1.4",
+    "bestzip": "2.1.1",
     "eslint": "4.5.0",
     "eslint-config-xo-space": "0.16.0",
     "eslint-formatter-pretty": "1.1.0",
