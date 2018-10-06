@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
-    "bestzip": "1.1.4",
+    "bestzip": "2.1.1",
     "eslint": "4.5.0",
     "eslint-config-xo-space": "0.16.0",
     "eslint-formatter-pretty": "1.1.0",
