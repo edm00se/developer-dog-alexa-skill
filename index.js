@@ -1,47 +1,115 @@
 'use strict';
-const Alexa = require('alexa-sdk');
+const Alexa = require('ask-sdk-core');
 
-const APP_ID = undefined; // OPTIONAL: replace with "amzn1.echo-sdk-ams.app.[your-unique-value-here]";
+const pFACTS = require('./facts');
 
-let pFACTS = require('./facts');
-
-const handlers = {
-  LaunchRequest: function () {
-    this.emit('GetFact');
+// start: handler declarations
+// core functionality for fact skill
+const GetNewFactHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    // checks request type
+    return request.type === 'LaunchRequest'
+      || (request.type === 'IntentRequest'
+        && request.intent.name === 'GetNewFactIntent')
+      || (request.type === 'IntentRequest'
+        && request.intent.name === 'GetFact');
   },
-  GetNewFactIntent: function () {
-    this.emit('GetFact');
-  },
-  GetFact: function () {
+  handle(handlerInput) {
     pFACTS.then(facts => {
-      // Get a random space fact from the space facts list
-      let factIndex = Math.floor(Math.random() * facts.length);
+
+      const factIndex = Math.floor(Math.random() * facts.length);
+      const randomFact = facts[factIndex];
       let cardTitle = 'Happiness is next to dogginess';
-      let randomFact = facts[factIndex];
+      const speakOutput = randomFact;
 
-      // Create speech output
-      let speechOutput = randomFact;
+      return handlerInput.responseBuilder
+        .speak(speakOutput)
+        .withSimpleCard(cardTitle, randomFact)
+        .getResponse();
 
-      this.emit(':tellWithCard', speechOutput, cardTitle, randomFact);
     });
   },
-  'AMAZON.HelpIntent': function () {
-    let speechOutput =
-      'You can say tell me a space fact, or, you can say exit... What can I help you with?';
-    let reprompt = 'What can I help you with?';
-    this.emit(':ask', speechOutput, reprompt);
-  },
-  'AMAZON.CancelIntent': function () {
-    this.emit(':tell', 'Goodbye!');
-  },
-  'AMAZON.StopIntent': function () {
-    this.emit(':tell', 'Goodbye!');
-  }
 };
 
-exports.handler = function (event, context, callback) {
-  const alexa = Alexa.handler(event, context);
-  alexa.APP_ID = APP_ID;
-  alexa.registerHandlers(handlers);
-  alexa.execute();
+const HelpHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'IntentRequest'
+      && request.intent.name === 'AMAZON.HelpIntent';
+  },
+  handle(handlerInput) {
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+    return handlerInput.responseBuilder
+      .speak('You can say tell me a fact, or, you can say exit...')
+      .reprompt('What can I help you with?')
+      .getResponse();
+  },
 };
+
+const FallbackHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'IntentRequest'
+      && request.intent.name === 'AMAZON.FallbackIntent';
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak('I\'m sorry but Developer Dog doesn\'t understand that request. You can say tell me a fact, or, you can say exit...')
+      .reprompt('What can I help you with?')
+      .getResponse();
+  },
+};
+
+const ExitHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'IntentRequest'
+      && (request.intent.name === 'AMAZON.CancelIntent'
+        || request.intent.name === 'AMAZON.StopIntent');
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak('Goodbye!')
+      .getResponse();
+  },
+};
+
+const SessionEndedRequestHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'SessionEndedRequest';
+  },
+  handle(handlerInput) {
+    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
+    return handlerInput.responseBuilder.getResponse();
+  },
+};
+
+const ErrorHandler = {
+  canHandle() {
+    return true;
+  },
+  handle(handlerInput, error) {
+    console.log(`Error handled: ${error.message}`);
+    console.log(`Error stack: ${error.stack}`);
+    return handlerInput.responseBuilder
+      .speak('Sorry, but an error occurred. Squirrel!')
+      .reprompt('What can I help you with?')
+      .getResponse();
+  },
+};
+// end: handlers
+
+const skillBuilder = Alexa.SkillBuilders.custom();
+
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    GetNewFactHandler,
+    HelpHandler,
+    ExitHandler,
+    FallbackHandler,
+    SessionEndedRequestHandler,
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();

@@ -14,7 +14,7 @@
     "lint": "eslint -f './node_modules/eslint-formatter-pretty' index.js facts.js"
   },
   "dependencies": {
-    "alexa-sdk": "1.0.25",
+    "ask-sdk-core": "2.1.0",
     "axios": "0.17.1"
   },
   "devDependencies": {
