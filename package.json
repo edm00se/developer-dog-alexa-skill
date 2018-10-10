@@ -30,7 +30,7 @@
     "prettier-eslint-cli": "4.7.1",
     "rimraf": "2.6.2"
   },
-  "author": "Eric McCormick (https://ericmccormick.io/)",
+  "author": "Eric McCormick (https://edm00se.codes/)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/edm00se/developer-dog-alexa-skill.git"
