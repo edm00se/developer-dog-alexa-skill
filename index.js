@@ -2,7 +2,7 @@
 const Alexa = require('ask-sdk-core');
 
 const pFACTS = require('./facts');
-const ALEXA_SKILL_ID = undefined;
+const ALEXA_SKILL_ID = process.env.ALEXA_SKILL_ID;
 
 // start: handler declarations
 // core functionality for fact skill
@@ -119,5 +119,5 @@ exports.handler = skillBuilder
     SessionEndedRequestHandler,
   )
   .addErrorHandlers(ErrorHandler)
-  // .withSkillId(ALEXA_SKILL_ID)
+  .withSkillId(ALEXA_SKILL_ID)
   .lambda();
