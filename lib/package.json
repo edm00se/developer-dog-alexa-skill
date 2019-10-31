@@ -1,0 +1,21 @@
+{
+  "name": "alexa-dev-dog-fact-lambda",
+  "version": "1.0.0",
+  "description": "an aws lambda function to back the developer dog alexa skill",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ask-sdk-core": "2.1.0",
+    "ask-sdk-model": "1.7.1",
+    "axios": "0.18.0"
+  },
+  "devDependencies": {},
+  "author": "Eric McCormick (https://edm00se.codes/)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edm00se/developer-dog-alexa-skill.git"
+  },
+  "license": "MIT"
+}
